@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import simple_draw as sd
+import random as rnd
 
 sd.resolution = (1000, 1000)
 print(help(sd))
@@ -51,12 +52,17 @@ def branch(point, angle, length, delta):
     global r, g, b
     v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
     v1.draw(color=tuple([r, g, b]))
-    if r>10:
-        r -= 10
+
+    # r = int(rnd.random()*255)
+    # g = int(rnd.random()*255)
+    # b = int(rnd.random()*255)
+
+    if b>10:
+        b -= 10
     elif g>10:
         g -= 10
-    elif b>10:
-        b -= 10
+    elif r>10:
+        r -= 10
     else:
         r = 255
         g = 255
