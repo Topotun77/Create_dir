@@ -1,3 +1,6 @@
+import this
+
+
 def print_params(a = 1, b = 'строка', c = True):
     print(f'a = {a},  b = {b},  c = {c}')
 

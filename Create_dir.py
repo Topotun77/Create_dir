@@ -2,18 +2,16 @@ import os
 import tkinter as tk
 from tkinter import filedialog as fd
 
-# print(help(tk))
-
 
 def ToStr(c):
-    s=str(c)
-    if len(s)<2:
-        s = "0"+s
+    s = str(c)
+    if len(s) < 2:
+        s = "0" + s
     return s
 
 
 def create_dir():
-    c=1
+    c = 1
     file_ = file_entry.get()
     dir_ = dir_entry.get()
     os.chdir(dir_)
@@ -23,10 +21,11 @@ def create_dir():
         ln = fl.readline()
         if not ln:
             break
-        #print(ln.strip())
-        os.mkdir(ToStr(c)+" "+ln.strip())
-        c+=1
+        # print(ln.strip())
+        os.mkdir(ToStr(c) + " " + ln.strip())
+        c += 1
     fd.askdirectory()
+
 
 def choice_dir():
     # txt = './Verstka'
@@ -36,10 +35,8 @@ def choice_dir():
     dir_entry.insert(0, txt)
 
 
-#os.chdir(Ndir)
-
 window = tk.Tk()
-window.configure(bg='orange')
+window.configure()
 # window['bg'] = 'yellow'   #(tuple([255, 255, 0]))
 window.title('Создание директориев по списку')
 window.geometry("500x200")
@@ -68,7 +65,6 @@ number2 = tk.Label(window, text="Директория вывода: ")
 number2.place(x=10, y=25)
 
 window.mainloop()
-
 
 # вывести текущую директорию
 # print("Текущая деректория:", os.getcwd())

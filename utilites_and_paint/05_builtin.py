@@ -119,8 +119,8 @@ print(id(True))
 # --- Общего назначения ---
 
 # hash() - значение хэша для обьекта. Что такое хэш-функции см https://goo.gl/gZLM4o
-hash('Кржижановский')
-hash(profit)
+# hash('Кржижановский')
+# hash(profit)
 
 # isinstance() - является ли обьект обьектом данного класса
 isinstance(profit, list)
@@ -129,7 +129,7 @@ isinstance(profit, list)
 type(profit)
 
 # open() - открыть файл на файловой системе
-ff = open('lesson_004/lecture_snippets/05_builtin.py', 'r')
+ff = open('/utilites_and_paint/05_builtin.py', 'r')
 for line in ff.readlines():
     print(line, end='')
 ff.close()
