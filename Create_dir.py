@@ -74,6 +74,7 @@ window = tk.Tk()
 # window.configure()
 # window['bg'] = 'yellow'   #(tuple([255, 255, 0]))
 window.title('Создание папок по списку из файла')
+window.iconbitmap(default="folders-2.ico")
 window.geometry("500x600")
 # window.resizable(False, False)
 
