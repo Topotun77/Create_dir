@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import filedialog as fd, scrolledtext
 from tkinter import messagebox as mb
 import subprocess
-from tkinter.constants import SUNKEN, FLAT, RAISED, GROOVE, RIDGE, END
+from tkinter.constants import SUNKEN, FLAT, RAISED, GROOVE, RIDGE, END, NW, X, CENTER, S, E, W, N
 
 
 def to_str(c):
@@ -71,12 +71,9 @@ def choice_dir():
 
 
 window = tk.Tk()
-# window.configure()
-# window['bg'] = 'yellow'   #(tuple([255, 255, 0]))
 window.title('Создание папок по списку из файла')
 window.iconbitmap(default="folders-2.ico")
-window.geometry("500x600")
-# window.resizable(False, False)
+window.geometry("500x500")
 
 frame1 = tk.Frame(
     window,
@@ -87,53 +84,48 @@ frame1 = tk.Frame(
 )
 frame1.pack()
 
-number2 = tk.Label(frame1, text="Директория вывода: ")
-number2.grid(row=1, column=1)
+number2 = tk.Label(frame1, text="Директория вывода:", justify='right')
+number2.grid(row=0, column=0)
 
-number1 = tk.Label(frame1, text="Файл со списком: ")
-number1.grid(row=2, column=1)
+number1 = tk.Label(frame1, text="Файл со списком:", justify='right')
+number1.grid(row=1, column=0)
 
 dir_entry = tk.Entry(frame1, width=50)
-dir_entry.grid(row=1, column=2)
+dir_entry.grid(row=0, column=1)
 txt = './'
 dir_entry.insert(0, txt)
 
 file_entry = tk.Entry(frame1, width=50)   #, justify='center')
-file_entry.grid(row=2, column=2)
+file_entry.grid(row=1, column=1)
 txt = 'list.txt'
 file_entry.insert(0, txt)
 
 button_dir = tk.Button(frame1, text="/", width=1, height=0, command=choice_dir)
-button_dir.grid(row=1, column=3)
+button_dir.grid(row=0, column=2)
 
 frame2 = tk.Frame(
     window,
-    padx=10,
-    pady=10,
+    padx=5,
+    pady=5,
     relief=RIDGE,
     border=3
 )
 frame2.pack(expand=True)
 
-frame3 = tk.Frame(
-    window,
-    padx=10,
-    pady=10
-)
-frame3.pack()
+frame2.columnconfigure(0, weight=1)
+frame2.columnconfigure(1, weight=1)
+frame2.rowconfigure(0, weight=1)
 
-button_save = tk.Button(frame3, text="Сохранить файл", width=30, height=2, command=save_list)
-button_save.grid(row=3, column=1)
-
-button_create = tk.Button(frame3, text="Создать директории", width=30, height=2, command=create_dir)
-button_create.grid(row=3, column=2)
-
-# text_box = tk.Text(frame2)
 text_box = scrolledtext.ScrolledText(frame2)
-text_box.pack()
-# text_box.grid(column=1, row=1)
+text_box.grid(row=0, column=0, columnspan=2, rowspan=1)
+# text_box.pack(expand=True)
+
+button_save = tk.Button(frame2, text="Сохранить файл", width=20, height=2, command=save_list)
+button_save.grid(row=1, column=0)
+
+button_create = tk.Button(frame2, text="Создать директории", width=20, height=2, command=create_dir)
+button_create.grid(row=1, column=1)
 
 read_list()
 
 window.mainloop()
-
