@@ -18,7 +18,8 @@ def get_path():
     file_ = file_entry.get()
     if '/' not in file_:
         dir_ = dir_entry.get()
-        file_ = (dir_+'/'+file_).replace("\\", "/")
+        file_ = os.path.join(dir_, file_)
+        # file_ = (dir_+'/'+file_).replace("\\", "/")
     return os.path.abspath(file_)
 
 
@@ -56,7 +57,13 @@ def create_dir():
                 ln = fl.readline()
                 if not ln:
                     break
-                os.mkdir(to_str(c) + " " + ln.strip())
+                try:
+                    os.mkdir(to_str(c) + " " + ln.strip())
+                except:
+                    yes_no = mb.askyesno('Error',
+                                         f'Директория {to_str(c) + " " + ln.strip()} не создана. Продолжить?')
+                    if not yes_no:
+                        break
                 c += 1
     except FileNotFoundError or OSError as err:
         mb.showerror('Error', f'Файл {file_} не найден!')
@@ -92,12 +99,11 @@ window = tk.Tk()
 window.title('Создание папок по списку из файла')
 try:
     window.iconbitmap(default="./folders-2.ico")
+    # window.iconbitmap(default=os.path.join(sys._MEIPASS, "./folders-2.ico"))
 except:
     pass
 window.geometry("500x500")
 window.minsize(460,200)
-# window.columnconfigure(0, weight=1)
-# window.rowconfigure(1, weight=1)
 
 
 frame1 = tk.Frame(
