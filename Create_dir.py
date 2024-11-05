@@ -3,7 +3,8 @@ import tkinter as tk
 from tkinter import filedialog as fd, scrolledtext
 from tkinter import messagebox as mb
 import subprocess
-from tkinter.constants import SUNKEN, FLAT, RAISED, GROOVE, RIDGE, END, NW, X, CENTER, S, E, W, N
+from tkinter.constants import (SUNKEN, FLAT, RAISED, GROOVE,
+                               RIDGE, END, NW, X, CENTER, S, E, W, N)
 
 
 def to_str(c):
@@ -62,7 +63,6 @@ def create_dir():
 
 
 def choice_dir():
-    # txt = './Verstka'
     dir_ = dir_entry.get()
     txt = fd.askdirectory(initialdir=dir_)
     dir_entry.delete(0, 'end')
@@ -74,6 +74,10 @@ window = tk.Tk()
 window.title('Создание папок по списку из файла')
 window.iconbitmap(default="folders-2.ico")
 window.geometry("500x500")
+window.minsize(460,200)
+# window.columnconfigure(0, weight=1)
+# window.rowconfigure(1, weight=1)
+
 
 frame1 = tk.Frame(
     window,
@@ -108,23 +112,22 @@ frame2 = tk.Frame(
     padx=5,
     pady=5,
     relief=RIDGE,
-    border=3
+    border=1
 )
-frame2.pack(expand=True)
+frame2.pack(fill="both", expand=True)
 
 frame2.columnconfigure(0, weight=1)
 frame2.columnconfigure(1, weight=1)
 frame2.rowconfigure(0, weight=1)
 
-text_box = scrolledtext.ScrolledText(frame2)
+text_box = scrolledtext.ScrolledText(frame2, width=3000,  height=3000)
 text_box.grid(row=0, column=0, columnspan=2, rowspan=1)
-# text_box.pack(expand=True)
 
 button_save = tk.Button(frame2, text="Сохранить файл", width=20, height=2, command=save_list)
-button_save.grid(row=1, column=0)
+button_save.grid(row=1, column=0, sticky=E)
 
 button_create = tk.Button(frame2, text="Создать директории", width=20, height=2, command=create_dir)
-button_create.grid(row=1, column=1)
+button_create.grid(row=1, column=1, sticky=W)
 
 read_list()
 
