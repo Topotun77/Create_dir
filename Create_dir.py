@@ -13,10 +13,13 @@ def to_str(c):
         s = "0" + s
     return s
 
+
 def get_path():
     file_ = file_entry.get()
-    dir_ = dir_entry.get()
-    return os.path.abspath((dir_+'/'+file_).replace("\\", "/"))
+    if '/' not in file_:
+        dir_ = dir_entry.get()
+        file_ = (dir_+'/'+file_).replace("\\", "/")
+    return os.path.abspath(file_)
 
 
 def read_list():
@@ -36,8 +39,9 @@ def save_list():
         text = text_box.get(0.0, END)
         with open(file_full, 'w') as fl:
             fl.write(text)
+            mb.showinfo('Файл сохранен', f'Файл {file_full} сохранен успешно!', parent=window)
     except FileNotFoundError as err:
-        mb.showerror('Error', f'Файл {file_full} не найден!')
+        mb.showerror('Error', f'Файл {file_full} не найден!', parent=window)
 
 
 def create_dir():
@@ -65,14 +69,31 @@ def create_dir():
 def choice_dir():
     dir_ = dir_entry.get()
     txt = fd.askdirectory(initialdir=dir_)
-    dir_entry.delete(0, 'end')
-    dir_entry.insert(0, txt)
+    if txt:
+        dir_entry.delete(0, 'end')
+        dir_entry.insert(0, txt)
+    read_list()
+
+
+def choice_list():
+    file_ = file_entry.get()
+    if '/' in file_:
+        dir_ = file_[0:file_.rfind('/')]
+    else:
+        dir_ = dir_entry.get()
+    txt = fd.askopenfilename(initialdir=dir_)
+    if txt:
+        file_entry.delete(0, 'end')
+        file_entry.insert(0, txt)
     read_list()
 
 
 window = tk.Tk()
 window.title('Создание папок по списку из файла')
-window.iconbitmap(default="folders-2.ico")
+try:
+    window.iconbitmap(default="./folders-2.ico")
+except:
+    pass
 window.geometry("500x500")
 window.minsize(460,200)
 # window.columnconfigure(0, weight=1)
@@ -106,6 +127,9 @@ file_entry.insert(0, txt)
 
 button_dir = tk.Button(frame1, text="/", width=1, height=0, command=choice_dir)
 button_dir.grid(row=0, column=2)
+
+button_file = tk.Button(frame1, text="...", width=1, height=0, command=choice_list)
+button_file.grid(row=1, column=2)
 
 frame2 = tk.Frame(
     window,
